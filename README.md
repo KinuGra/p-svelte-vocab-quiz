@@ -30,6 +30,12 @@
 
 ## 環境構築
 
+`.env`を作成
+```sh
+VITE_PUBLIC_SUPABASE_URL = "https://..."
+VITE_PUBLIC_SUPABASE_ANON_KEY = ...
+```
+
 ```sh
 npm create vite@latest
 npx svelte-add tailwindcss
