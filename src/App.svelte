@@ -84,6 +84,9 @@
     gameoverModal.showModal(fancyScore.getScore(), enemyScore);
   }
   function changeToQuizstart(){
+    // debug
+    console.log(`対戦状態 : ${isTaisen}`);
+
     state = QuizStart;
     time = maxTime;
     quizDifficulty = VeryEasy;
@@ -137,18 +140,22 @@
     changeToAnswer(); // 解答状態に移行
   }
   function changeToTaisenResult(){
-    let roomId = localStorage.getItem("roomId");
-    let user = localStorage.getItem("user");
-    /** 相手がfinishになるまでポーリング */
-    if(user === "parent"){
-      user = "child";
+    if(isTaisen === true){
+      let roomId = localStorage.getItem("roomId");
+      let user = localStorage.getItem("user");
+      /** 相手がfinishになるまでポーリング */
+      if(user === "parent"){
+        user = "child";
+      }else{
+        user = "parent";
+      }
+      pollUntilFinish(roomId,user, (score) => {
+        enemyScore = score;
+        changeToGameover();
+      });
     }else{
-      user = "parent";
-    }
-    pollUntilFinish(roomId,user, (score) => {
-      enemyScore = score;
       changeToGameover();
-    });
+    }
   }
 </script>
 
