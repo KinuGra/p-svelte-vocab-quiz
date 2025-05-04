@@ -1,4 +1,5 @@
 .env*
+/ref.txt
 
 # Logs
 logs
